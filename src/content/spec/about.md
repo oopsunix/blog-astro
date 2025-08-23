@@ -4,27 +4,14 @@ description: 这是一份站长的自述报告，请查收。
 comments: false
 ---
 
-## 关于 Gyoza
+## 关于
 
-Gyoza 是一个使用 Astro 和 React 开发的博客主题。Gyoza 借鉴了 [Shiro](https://github.com/innei/Shiro) 和一些网站的设计。
+关于的话，向来是不想写的，一来没人看，二来三两句也说不清，硬要写的话，大概是今天天气不错。
 
-Gyoza 的核心理念是简洁，快速，可爱。
+## 联系
 
-- 在 [Markdown 示例](/posts/markdown) 中展示了 Markdown 的渲染样式
-- 可以前往 [Gyoza 使用指南](/posts/guide) 了解 Gyoza 的使用方法
+如果你有任何想法想与我分享交流，欢迎发送邮件至 oopsunix@谷歌邮箱，但不保证能及时回复。
 
-Gyoza 是开源的，如果你对这个项目感兴趣，欢迎前往 Gyoza 的 [Github 仓库](https://github.com/lxchapu/astro-gyoza) 来提 Issue 或者 PR。
+## 支持
 
-## 关于作者
-
-我是 lxchapu，是一名前端开发者，喜欢各种有趣的东西。欢迎访问我的个人网站 [www.lxchapu.com](https://www.lxchapu.com)，了解关于我更多的信息。
-
-## 致谢
-
-感谢以下项目：
-
-- [Astro](https://astro.build/)
-- [React](https://reactjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [Jotai](https://jotai.org/)
+如果你认为我的文章对你有任何帮助或者比较有趣，又恰好此时心情不错，可以考虑[支持一下](https://cdn.akams.cn/images/donate/donate.png)，请我喝一杯咖啡或者可乐。
