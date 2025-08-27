@@ -1,9 +1,20 @@
 import { getCollection } from 'astro:content'
 
-// 获取所有文章
-async function getAllPosts() {
+// 获取所有文章（包括隐藏文章），仅用于单独访问
+export async function getAllPostsIncludingHidden() {
   const allPosts = await getCollection('posts', ({ data }) => {
     return import.meta.env.PROD ? data.draft !== true : true
+  })
+
+  return allPosts
+}
+
+// 获取所有可显示的文章（过滤隐藏文章）
+async function getAllPosts() {
+  const allPosts = await getCollection('posts', ({ data }) => {
+    const isNotDraft = import.meta.env.PROD ? data.draft !== true : true
+    const isNotHidden = !data.hide
+    return isNotDraft && isNotHidden
   })
 
   return allPosts

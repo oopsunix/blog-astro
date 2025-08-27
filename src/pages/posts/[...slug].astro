@@ -2,7 +2,7 @@
 import type { CollectionEntry } from 'astro:content'
 import type { GetStaticPaths } from 'astro'
 import MarkdownLayout from '@/layouts/MarkdownLayout.astro'
-import { getSortedPosts } from '@/utils/content'
+import { getSortedPosts, getAllPostsIncludingHidden } from '@/utils/content'
 import MarkdownWrapper from '@/components/MarkdownWrapper.astro'
 import SectionBlock from '@/components/SectionBlock.astro'
 import { PostToc } from '@/components/post/PostToc'
@@ -16,16 +16,25 @@ import { ActionAside } from '@/components/post/ActionAside'
 import { PostCopyright } from '@/components/post/PostCopyright'
 
 export const getStaticPaths = (async () => {
+  // 获取所有文章（包括隐藏文章）用于生成路径
+  const allPosts = await getAllPostsIncludingHidden()
+  // 获取可显示的文章用于导航
   const sortedPosts = await getSortedPosts()
 
-  return sortedPosts.map((post, index) => ({
-    params: { slug: post.slug },
-    props: {
-      current: post,
-      prev: index > 0 ? sortedPosts[index - 1] : undefined,
-      next: index < sortedPosts.length - 1 ? sortedPosts[index + 1] : undefined,
-    },
-  }))
+  return allPosts.map((post) => {
+    // 找到当前文章在可显示文章中的位置（用于导航）
+    const visibleIndex = sortedPosts.findIndex(p => p.slug === post.slug)
+    
+    return {
+      params: { slug: post.slug },
+      props: {
+        current: post,
+        // 只有在可显示文章列表中才提供导航链接
+        prev: visibleIndex > 0 ? sortedPosts[visibleIndex - 1] : undefined,
+        next: visibleIndex >= 0 && visibleIndex < sortedPosts.length - 1 ? sortedPosts[visibleIndex + 1] : undefined,
+      },
+    }
+  })
 }) satisfies GetStaticPaths
 
 interface Props {
