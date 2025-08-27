@@ -445,11 +445,11 @@ export const GET: APIRoute = async () => {
 
 ```xml
 <url>
-  <loc>https://akams.cn/friends</loc>
+  <loc>https://www.akams.cn/friends</loc>
   <priority>0.7</priority>
 </url>
 <url>
-  <loc>https://akams.cn/friends</loc>
+  <loc>https://www.akams.cn/friends</loc>
   <priority>0.6</priority>
 </url>
 ```
