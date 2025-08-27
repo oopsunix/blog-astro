@@ -1,10 +1,10 @@
 ---
 title: 在文章中嵌入视频和代码
 date: 2024-04-04
-lastMod: 2024-05-18T07:29:49.820Z
-tags: [Video, Markdown]
-category: 例子
 summary: 这篇文章介绍了如何在文章中嵌入视频和代码。
+lastMod: 2024-05-18T07:29:49.820Z
+tags: [Markdown]
+category: 示例
 ---
 
 ## Codepen
@@ -18,10 +18,10 @@ summary: 这篇文章介绍了如何在文章中嵌入视频和代码。
 ## YouTube
 
 ```md
-::youtube{#BuKft9LpL_0}
+::youtube{#zCLOJ9j1k2Y}
 ```
 
-::youtube{#BuKft9LpL_0}
+::youtube{#zCLOJ9j1k2Y}
 
 ## Bilibili
 
