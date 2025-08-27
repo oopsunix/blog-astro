@@ -51,6 +51,19 @@ export async function getSortedPosts() {
   })
 }
 
+// 获取所有文章（包括隐藏文章），置顶优先，发布日期降序，用于RSS订阅
+export async function getSortedPostsIncludingHidden() {
+  const allPosts = await getAllPostsIncludingHidden()
+
+  return allPosts.sort((a, b) => {
+    if (a.data.sticky !== b.data.sticky) {
+      return b.data.sticky - a.data.sticky
+    } else {
+      return b.data.date.valueOf() - a.data.date.valueOf()
+    }
+  })
+}
+
 // 获取所有文章的字数
 export async function getAllPostsWordCount() {
   const allPosts = await getAllPosts()

@@ -57,6 +57,19 @@ export async function getAllPostsIncludingHidden() {
 
   return allPosts
 }
+
+// 获取所有文章（包括隐藏文章），置顶优先，发布日期降序，用于RSS订阅
+export async function getSortedPostsIncludingHidden() {
+  const allPosts = await getAllPostsIncludingHidden()
+
+  return allPosts.sort((a, b) => {
+    if (a.data.sticky !== b.data.sticky) {
+      return b.data.sticky - a.data.sticky
+    } else {
+      return b.data.date.valueOf() - a.data.date.valueOf()
+    }
+  })
+}
 ```
 
 **修改现有函数**：
@@ -77,6 +90,7 @@ async function getAllPosts() {
 **变更说明**：
 
 - 新增 `getAllPostsIncludingHidden()` 函数用于文章详情页面
+- 新增 `getSortedPostsIncludingHidden()` 函数用于RSS订阅
 - 修改 `getAllPosts()` 函数，增加隐藏文章过滤逻辑
 - 保持向后兼容性，其他依赖函数无需修改
 
@@ -117,6 +131,25 @@ export const getStaticPaths = (async () => {
 - 使用 `getSortedPosts()` 生成导航链接，确保隐藏文章不出现在上一篇/下一篇中
 - 隐藏文章仍可直接访问，但不会影响其他文章的导航
 
+#### 4. 修改RSS订阅 (`src/pages/rss.xml.ts`)
+
+**修改RSS逻辑**：
+
+```typescript
+import { getSortedPostsIncludingHidden } from '@/utils/content'
+
+export async function GET(context: APIContext) {
+  const sortedPosts = await getSortedPostsIncludingHidden()
+  // ... 其余代码保持不变
+}
+```
+
+**变更说明**：
+
+- 修改为使用 `getSortedPostsIncludingHidden()` 函数
+- RSS订阅中将包含隐藏文章，让订阅者可以获取完整内容
+- 隐藏文章只在网站页面中隐藏，但RSS中仍然可访问
+
 ### 📁 影响的文件清单
 
 1. **`src/content/config.ts`**
@@ -124,13 +157,18 @@ export const getStaticPaths = (async () => {
 
 2. **`src/utils/content.ts`**
    - 新增 `getAllPostsIncludingHidden()` 函数
+   - 新增 `getSortedPostsIncludingHidden()` 函数
    - 修改 `getAllPosts()` 函数过滤逻辑
 
 3. **`src/pages/posts/[...slug].astro`**
    - 更新导入语句
    - 修改静态路径生成逻辑
 
-4. **测试文件：`src/content/posts/docker-compose.md`**
+4. **`src/pages/rss.xml.ts`**
+   - 修改为使用 `getSortedPostsIncludingHidden()` 函数
+   - 保持RSS订阅包含隐藏文章
+
+5. **测试文件：`src/content/posts/docker-compose.md`**
    - 添加 `hide: true` 用于功能验证
 
 ### 🎯 功能验证
@@ -143,20 +181,26 @@ export const getStaticPaths = (async () => {
   - 归档页面
   - 相关分类页面
   - 相关标签页面
-  - RSS订阅
 - 但仍可通过 `/posts/docker-compose` 直接访问
+- **RSS订阅中仍然包含该文章**
 
-### 🔄 不受影响的功能
+### 🔄 不同显示策略
 
-以下功能自动继承过滤逻辑，无需修改：
+以下功能的显示策略：
 
-- **RSS订阅** (`src/pages/rss.xml.ts`) - 使用 `getSortedPosts()`
+**过滤隐藏文章的页面**：
+
 - **首页列表** (`src/pages/[...page].astro`) - 使用 `getSortedPosts()`
 - **归档页面** (`src/pages/archives.astro`) - 使用 `getOldestPosts()`
 - **分类页面** (`src/pages/categories/[category].astro`) - 使用 `getOldestPosts()`
 - **标签页面** (`src/pages/tags/[tag].astro`) - 使用 `getOldestPosts()`
 - **分类统计** - 使用基于 `getAllPosts()` 的函数
 - **标签统计** - 使用基于 `getAllPosts()` 的函数
+
+**包含隐藏文章的功能**：
+
+- **文章详情页面** (`src/pages/posts/[...slug].astro`) - 使用 `getAllPostsIncludingHidden()`
+- **RSS订阅** (`src/pages/rss.xml.ts`) - 使用 `getSortedPostsIncludingHidden()`
 
 ### 📝 使用方法
 
@@ -177,20 +221,23 @@ hide: true # 设置为隐藏
 
 1. **向后兼容**：现有文章无需修改，默认 `hide: false`
 2. **性能友好**：在数据查询层面过滤，减少不必要的处理
-3. **SEO友好**：隐藏文章不会出现在sitemap和RSS中
+3. **灵活的RSS策略**：RSS订阅包含隐藏文章，让订阅者获取完整内容
 4. **用户体验**：隐藏文章不影响正常文章的导航逻辑
 5. **类型安全**：通过TypeScript类型检查确保数据一致性
+6. **SEO友好**：隐藏文章不会出现在网站内部链接中，但仍可直接访问
 
 ### ✅ 完成状态
 
 - [x] 内容配置修改
 - [x] 查询逻辑更新
 - [x] 文章详情页面修改
+- [x] RSS订阅修改以包含隐藏文章
 - [x] 功能测试验证
 - [x] 文档记录完成
 
 ---
 
 **更新时间**：2025-08-27  
-**版本**：v1.0  
-**兼容性**：完全向后兼容
+**版本**：v1.1  
+**兼容性**：完全向后兼容  
+**主要变更**：RSS订阅保持包含隐藏文章
