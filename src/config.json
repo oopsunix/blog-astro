@@ -19,22 +19,28 @@
     "description": "",
     "socials": [
       {
+        "name": "RSS",
+        "icon": "icon-rss",
+        "url": "/rss.xml",
+        "color": "rgb(23, 23, 23)"
+      },
+      {
         "name": "Apps",
         "icon": "icon-flask",
         "url": "/projects",
-        "color": "rgb(212, 70, 56)"
+        "color": "rgb(23, 23, 23)"
       },
       {
         "name": "Github",
         "icon": "icon-github",
         "url": "https://github.com/oopsunix",
-        "color": "rgb(24, 23, 23)"
+        "color": "rgb(23, 23, 23)"
       },
       {
         "name": "Email",
         "icon": "icon-mail",
         "url": "mailto:oopsunix@gmail.com",
-        "color": "rgb(36, 46, 54)"
+        "color": "rgb(23, 23, 23)"
       }
     ],
     "yiyan": ""
