@@ -2,7 +2,7 @@
 title: uv -- Python 包与环境管理工具
 date: 2025-06-15
 summary: uv 是一个由 Astral 公司用 Rust 开发的高性能 Python 包管理工具，旨在提供比传统 pip 更快的包安装和依赖管理体验。
-lastMod: 2025-06-15T18:29Z
+lastMod: 2025-06-15T07:29:49.820Z
 tags: [Python]
 category: Pyhon
 ---

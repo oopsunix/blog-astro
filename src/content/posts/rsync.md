@@ -2,7 +2,7 @@
 title: 使用 Rsync 实现服务器之间的高效文件同步
 date: 2025-09-07
 summary: 使用 Rsync 实现服务器之间的高效文件同步
-lastMod: 2025-09-07
+lastMod: 2025-09-07T07:29:49.820Z
 tags: [Rsync, Linux]
 category: Linux
 ---
