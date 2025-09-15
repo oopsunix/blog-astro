@@ -1,7 +1,7 @@
 ---
 title: uv -- Python 包与环境管理工具
 date: 2025-06-15
-summary: 一个小Tip，可以在用来下载大文件zip压缩包之前，先知晓压缩包中的文件列表。
+summary: uv 是一个由 Astral 公司用 Rust 开发的高性能 Python 包管理工具，旨在提供比传统 pip 更快的包安装和依赖管理体验。
 lastMod: 2025-06-15T18:29Z
 tags: [Python]
 category: Pyhon
@@ -11,9 +11,9 @@ category: Pyhon
 
 ## uv 介绍
 
-UV 是一个由 Astral 公司用 Rust 开发的高性能 Python 包管理工具，旨在提供比传统 pip 更快的包安装和依赖管理体验。
+uv 是一个由 Astral 公司用 Rust 开发的高性能 Python 包管理工具，旨在提供比传统 pip 更快的包安装和依赖管理体验。
 
-与传统的 Python 包管理工具相比，UV 具有以下显著优势：
+与传统的 Python 包管理工具相比，uv 具有以下显著优势：
 
 - **🚀 一体化工具**：一个工具替代 pip、pip-tools、pipx、poetry、pyenv、twine、virtualenv 等多种工具
 - **⚡️ 极致速度**：比 pip 快 10-100 倍
